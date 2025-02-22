@@ -11,22 +11,21 @@ mydb = mysql.connector.connect(
     database = 'mental_health_db'
 )
 
-cursor = mydb.cursor()
+cursor = mydb.cursor(dictionary=True)
 
 @app.route('/login', methods=['GET','Post'])
 def login():
-    if request.method == "POST":
+    if request.method == "POST" :
         email = request.form['email']
-        password = request.form['password'].encode('utf-8')
+        password = request.form['password']
 
-        cursor.execute('SELECT * FROM users Where email = %s',(email,))
-        user = cursor.fetchchone()
+        cursor.execute('SELECT * FROM users WHERE email = %s AND password =%s',(email,password,))
+        user = cursor.fetchone()
 
         if user:
-            stored_password = user[3].encode('utf-8')
-
-            session['id'] = user[0]
-            session['email'] =  user[2]
+            session['loggedin'] = True
+            session['id'] = user['user_ID']
+            session['email'] =  user['Email']
             return "Login Good"
         
         return "Invalid Email/Password"
