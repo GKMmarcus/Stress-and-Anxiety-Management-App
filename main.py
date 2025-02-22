@@ -17,15 +17,18 @@ cursor = mydb.cursor()
 def login():
     if request.method == "POST":
         email = request.form['email']
-        password = request.form['password']
+        password = request.form['password'].encode('utf-8')
 
-        cursor.execute('SELECT * FROM users Where email = %s AND password = %s')
-        users = cursor.fetchchone()
+        cursor.execute('SELECT * FROM users Where email = %s',(email,))
+        user = cursor.fetchchone()
 
-        if users:
-            session['id'] = users[0]
-            session['email'] =  users[1]
+        if user:
+            stored_password = user[3].encode('utf-8')
+
+            session['id'] = user[0]
+            session['email'] =  user[2]
             return "Login Good"
-        else:
-            return "Invalid Email/Password"
+        
+        return "Invalid Email/Password"
+        
     return render_template("index.html")
