@@ -25,6 +25,7 @@ def login():
         if users:
             session['id'] = users[0]
             session['email'] =  users[1]
+            return "Login Good"
         else:
             return "Invalid Email/Password"
     return render_template("index.html")
