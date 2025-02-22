@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
-<body>
-
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
-
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+    </head>
+    <body>
+        <div class="login">
+            <h1>Login</h1>
+            <form action = "{{ url_for('login') }}" method ="post">
+                <input type="email" name = "email" placeholder="Email" id = 'Email' required>
+                <input type="password" name = "password" placeholder="Password" id = 'Password' required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </body>
 </html>
