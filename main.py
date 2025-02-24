@@ -1,12 +1,15 @@
 from flask import Flask,render_template,request,redirect,url_for,session
 import mysql.connector
 from flask_bcrypt import Bcrypt
+from flask_session import Session
 
 
 app = Flask(__name__)
 app.secret_key ='Monkey'
 bcrypt = Bcrypt(app)
 
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 mydb = mysql.connector.connect(
     host = '127.0.0.1',
@@ -28,7 +31,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        cursor.execute('SELECT * FROM users WHERE email = %s',(email,))
+        cursor.execute('SELECT user_ID, Email, Password FROM users WHERE email = %s',(email,))
         user = cursor.fetchone()
 
         if user and bcrypt.check_password_hash(user[3], password):
