@@ -15,15 +15,15 @@ def login():
         password = request.form["password"]
         
         if email in USER_CREDENTIALS and USER_CREDENTIALS[email] == password:
-            return redirect(url_for("dashboard"))  # Redirect on successful login
+            return redirect(url_for("home"))  # Redirect on successful login
         else:
             error = "Invalid email or password"
 
     return render_template("index.html", error=error)
 
-@app.route("/dashboard")
-def dashboard():
-    return "<h1>Welcome to the Dashboard!</h1>"
+@app.route("/home")
+def home():
+    return render_template('home.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
