@@ -1,24 +1,16 @@
-from flask import Flask,render_template,request,redirect,url_for,session
-import mysql.connector
-from flask_bcrypt import Bcrypt
-from flask_session import Session
-
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask_mysqldb import MySQL
+import MySQLdb.cursors
+import MySQLdb.cursors, re, hashlib
 
 app = Flask(__name__)
-app.secret_key ='Monkey'
-bcrypt = Bcrypt(app)
 
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+app.config['MYSQL_HOST'] = '127.0.0.1'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_DB'] = 'mental_health_db'
 
-mydb = mysql.connector.connect(
-    host = '127.0.0.1',
-    user = 'root',
-    password = 'root',
-    database = 'mental_health_db'
-)
-
-cursor = mydb.cursor()
+mysql = MySQL(app)
 
 @app.route('/')
 def home():
@@ -31,10 +23,16 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        cursor.execute('SELECT user_ID, Email, Password FROM users WHERE email = %s',(email,))
+        hash = password + app.secret_key
+        hash = hashlib.sha1(hash.encode())
+        password = hash.hexdigest()
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM users WHERE email = %s',(email,))
+        
         user = cursor.fetchone()
 
-        if user and bcrypt.check_password_hash(user[3], password):
+        if user:
             session['id'] = user[0]
             session['email'] =  user[2]
             return "Login Good"
