@@ -8,6 +8,10 @@
     <body>
         <div class="login">
             <h1>Login</h1>
+            <div class = "links">
+                <a hef="{{ url_for('login') }}" class="active">Login</a>
+                <a href="#">Register</a>
+            </div>
             <form method ="POST">
                 <input type="email" name = "email" placeholder="Email" id = 'Email' required>
                 <input type="password" name = "password" placeholder="Password" id = 'Password' required>
