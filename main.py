@@ -36,16 +36,11 @@ def login():
 
         if users:
             session['loggedin'] = True
-            session['id'] = users['id']
+            session['user_id'] = users['user_id']
             session['email'] = users['email']
             return redirect(url_for("home"))
         else:
             return 'Incorrect Email/Password'
-
-        if email in USER_CREDENTIALS and USER_CREDENTIALS[email] == password:
-            return redirect(url_for("home"))  # Redirect on successful login
-        else:
-            error = "Invalid email or password"
 
     return render_template("index.html", error=error)
 
@@ -57,7 +52,7 @@ def register():
         password = request.form['password']
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.excute('SELECT * FROM users WHERE email = %s',(email,))
+        cursor.execute('SELECT * FROM users WHERE email = %s',(email,))
         users = cursor.fetchone()
 
         if users:
@@ -67,12 +62,13 @@ def register():
         elif not name or not password or not email:
             return "Please fill out the form"
         else:
-            hash = password
+            hash = password + app.secret_key
             hash = hashlib.sha1(hash.encode())
             password = hash.hexdigest()
 
-            cursor.execute('INSERE INTO users VAULES (NULL,%s,%s,%s)',(name,password,email,))
+            cursor.execute('INSERT INTO users (name,password,email) VALUES (%s,%s,%s)',(name,password,email,))
             mysql.connection.commit()
+
             return "Register Success"
         
     elif request.method == 'POST':
