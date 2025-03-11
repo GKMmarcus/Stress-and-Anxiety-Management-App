@@ -55,6 +55,26 @@ def register():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.excute('SELECT * FROM users WHERE email = %s',(email,))
+        users = cursor.fetchone()
+
+        if users:
+            return "Account already exists"
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            return "Invalid Email"
+        elif not name or not password or not email:
+            return "Please fill out the form"
+        else:
+            hash = password
+            hash = hashlib.sha1(hash.encode())
+            password = hash.hexdigest()
+
+            cursor.execute('INSERE INTO users VAULES (NULL,%s,%s,%s)',(name,password,email,))
+            mysql.connection.commit()
+            return "Register Success"
+        
     elif request.method == 'POST':
         return "Please Fill out the form"
     
