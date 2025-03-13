@@ -76,6 +76,18 @@ def register():
 def home():
     return render_template('home.html')
 
+@app.route("/profile")
+
+def profile():
+
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM users where user_id = %s',(session['user_id'],))
+        users = cursor.fetchone()
+
+        return render_template("profile.html", users = users)
+    
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     app.run(debug=True)
