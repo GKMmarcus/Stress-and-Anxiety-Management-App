@@ -14,10 +14,6 @@ app.config['MYSQL_DB'] = 'mental_health_db'
 
 mysql = MySQL(app)
 
-#Dummy user data for login
-USER_CREDENTIALS = {
-   "test@example.com": "password123"
-}
 
 @app.route("/", methods=["GET", "POST"])
 def login():
