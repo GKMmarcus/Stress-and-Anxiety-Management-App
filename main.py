@@ -106,5 +106,9 @@ def meditate():
 
     return render_template('meditate.html')
 
+@app.route
+def profile():
+    return render_template('profile.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
