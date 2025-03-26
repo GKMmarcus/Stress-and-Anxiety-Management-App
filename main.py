@@ -96,16 +96,21 @@ def meditate():
     MAX_RESULTS = 5
 
     reponse = requests.get(f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={SEARCH_QUERY}&maxResults={MAX_RESULTS}&type=video&key={meditate_api_key}")
+    
     data = reponse.json()
+    video_urls = []
 
-    for item in data["items"]:
-        title = item["snippet"]["title"]
-        video_id = item["id"]["videoId"]
-        video_url = f"https://www.youtube.com/watch?v={video_id}"
-        print(f"Title: {title}\nURL: {video_url}\n")
+    if "items" in data:
+        for item in data["items"]:
+            if "id" in item and "videoId" in item["id"]:
+                video_id = item["id"]["videoId"]
+                video_urls.append(f"https://www.youtube.com/embed/{video_id}")
 
-    return render_template('meditate.html')
-
+    if video_urls:
+        return render_template('meditate.html', video_urls=video_urls)
+    else:
+        return "No embeddable videos found.", 404
+        
 @app.route
 def profile():
     return render_template('profile.html')
