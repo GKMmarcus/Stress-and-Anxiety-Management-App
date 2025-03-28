@@ -3,6 +3,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Profile</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
         <nav class = 'navtop'>
@@ -15,7 +16,25 @@
                 <a href="{{ url_for('profile') }}"><i class = 'fas fa-home'></i>Profile</a>
             </div>
             <div class = "content">
-                {% block content %}{% endblock %}
+                <h2>Profile Page</h2>
+                    <div>
+                        <p>Your account details are below:</p>
+                        <table>
+                            <tr>
+                                <td>Name:</td>
+                                <td>{{ users['name'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Password:</td>
+                                <td>******</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td>{{ users['email'] }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
             </div>
         </nav>
     </body>
