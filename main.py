@@ -35,7 +35,7 @@ def login():
             session['loggedin'] = True
             session['user_id'] = users['user_id']
             session['email'] = users['email']
-            return redirect(url_for("home"))
+            return redirect(url_for("home.html"))
         else:
             return 'Incorrect Email/Password'
 
@@ -77,7 +77,7 @@ def register():
 def home():
     return render_template('home.html')
 
-@app.route("/profile")
+@app.route("/profile") 
 def profile():
     if 'loggedin' in session:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -86,7 +86,7 @@ def profile():
 
         return render_template("profile.html", users = users)
     
-    return redirect(url_for('login'))
+    return redirect(url_for('login.html'))
 
 @app.route("/meditate")
 def meditate():
@@ -111,9 +111,5 @@ def meditate():
     else:
         return "No embeddable videos found.", 404
         
-@app.route
-def profile():
-    return render_template('profile.html')
-
 if __name__ == "__main__":
     app.run(debug=True)
