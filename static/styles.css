@@ -85,8 +85,9 @@ body {
 }
 .navtop div {
     display: flex;
+    max-width: 1200px;
     margin: 0 auto;
-    width: 1000px;
+    width: 90%;
     height: 100%;
     padding: 0 20px;
 }
@@ -119,7 +120,8 @@ body.loggedin {
 }
 .content {
     width: 1000px;
-    margin: 0 auto;
+    margin: 50px auto;
+    text-align: center;
 }
 .content h2 {
     margin: 0;
