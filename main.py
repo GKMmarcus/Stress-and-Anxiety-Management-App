@@ -35,9 +35,9 @@ def login():
             session['loggedin'] = True
             session['user_id'] = users['user_id']
             session['email'] = users['email']
-            return redirect(url_for("home.html"))
+            return redirect(url_for("home"))
         else:
-            return 'Incorrect Email/Password'
+            error = 'Incorrect Email/Password'
 
     return render_template("index.html", error=error)
 
