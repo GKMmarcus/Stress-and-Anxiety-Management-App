@@ -73,10 +73,22 @@ def register():
     
     return render_template('register.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('loggin', None)
+    session.pop('user_id', None)
+    session.pop('name', None)
+
+    return redirect(url_for('login'))
+
 @app.route("/home")
 def home():
-    return render_template('home.html')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM users where user_id = %s',(session['user_id'],))
+    users = cursor.fetchone()
 
+    return render_template('home.html', users = users)
+    
 @app.route("/profile") 
 def profile():
     if 'loggedin' in session:
@@ -86,7 +98,7 @@ def profile():
 
         return render_template("profile.html", users = users)
     
-    return redirect(url_for('login.html'))
+    return redirect(url_for('login'))
 
 @app.route("/meditate")
 def meditate():
