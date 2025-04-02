@@ -11,15 +11,17 @@
             <div>
                 <h1>Stress Management App</h1>
                 <a href="{{ url_for('home') }}"><i class = 'fas fa-home'></i>Home</a>
-                <a href="{{ url_for('home') }}"></i>Take a test</a>
-                <a href="{{ url_for('home') }}"></i>Journal</a>
+                <a href="{{ url_for('home') }}">Take a test</a>
+                <a href="{{ url_for('journal') }}">Journal</a>
                 <a href="{{ url_for('breathing') }}">Breathing</a>
                 <a href="{{ url_for('meditate') }}">Meditate</a>
                 <a href="{{ url_for('profile') }}"><i class = 'fas fa-user-circle'></i>Profile</a>
             </div>
-            <div class = "content">
-                <p>Welcome Back, {{ name }}!</p>
-            </div>
         </nav>
+
+        <div class = "content">
+            <h2>Home Page</h2>
+            <p>Welcome</p>
+        </div>
     </body>
 </html>
