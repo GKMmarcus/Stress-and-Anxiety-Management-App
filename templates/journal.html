@@ -16,24 +16,29 @@
                 <a href="{{ url_for('breathing') }}">Breathing</a>
                 <a href="{{ url_for('meditate') }}">Meditate</a>
                 <a href="{{ url_for('profile') }}"><i class = 'fas fa-home'></i>Profile</a>
+                <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
             </div>
         </nav>
 
         <div class = "content">
-            <label>How's you feeling?</label>
-            <select name = "mood">
-                <option value="Happy">Happy</option>
-                <option value="Okay">Okay</option>
-                <option value="Sad">Sad</option>
-                <option value="Mad">Mad</option>
-                <option value="Stress">Stress</option>
-                <option value="Excited">Excited</option>
-            </select>
+            <h2>Write about your day</h2>
+            <form action="/journal" class = "journal-form">
+                <label>How's you feeling?</label>
+                <select name = "mood">
+                    <option value="Happy">Happy</option>
+                    <option value="Okay">Okay</option>
+                    <option value="Sad">Sad</option>
+                    <option value="Mad">Mad</option>
+                    <option value="Stress">Stress</option>
+                    <option value="Excited">Excited</option>
+                </select>
 
-            <label>Write your thoughts</label>
-            <textarea rows = '5'></textarea>
+                <label>Write your thoughts</label>
+                <textarea rows = '5'></textarea>
 
-            <button type="submit">Save Jornal</button>
+                <button type="submit">Save Jornal</button>
+            </form>
         </div>
+
     </body>
 </html>
