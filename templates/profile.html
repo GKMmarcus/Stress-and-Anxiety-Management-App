@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Profile</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     </head>
     <body>
         <nav class = 'navtop'>
@@ -11,31 +12,31 @@
                 <h1>Stress Management App</h1>
                 <a href="{{ url_for('home') }}"><i class = 'fas fa-home'></i>Home</a>
                 <a href="{{ url_for('home') }}">Take a test</a>
-                <a href="{{ url_for('home') }}">Journal</a>
+                <a href="{{ url_for('journal') }}">Journal</a>
                 <a href="{{ url_for('breathing') }}">Breathing</a>
                 <a href="{{ url_for('meditate') }}">Meditate</a>
                 <a href="{{ url_for('profile') }}"><i class = 'fas fa-home'></i>Profile</a>
             </div>
-            <div class = "content">
-                    <div>
-                        <p>Your account details are below:</p>
-                        <table>
-                            <tr>
-                                <td>Name:</td>
-                                <td>{{ users['name'] }}</td>
-                            </tr>
-                            <tr>
-                                <td>Password:</td>
-                                <td>******</td>
-                            </tr>
-                            <tr>
-                                <td>Email:</td>
-                                <td>{{ users['email'] }}</td>
-                            </tr>
-                        </table>
-                    </div>
-
-            </div>
         </nav>
+
+        <div class = "content">
+            <div>
+                <p>Your account details are below:</p>
+                <table>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{ users['name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>******</td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>{{ users['email'] }}</td>
+                    </tr>
+                </table>
+            </div>
+    </div>
     </body>
 </html>
