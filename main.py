@@ -133,6 +133,10 @@ def breathing():
         return render_template('breathing.html', video_urls=video_urls)
     else:
         return "No embeddable videos found.", 404
+    
+@app.route('/journal')
+def journal():
+    return render_template('journal.html')
         
 if __name__ == "__main__":
     app.run(debug=True)
