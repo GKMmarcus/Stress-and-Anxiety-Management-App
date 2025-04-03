@@ -15,7 +15,6 @@ app.config['MYSQL_DB'] = 'mental_health_db'
 
 mysql = MySQL(app)
 
-
 @app.route("/", methods=["GET", "POST"])
 def login():
     error = None
@@ -149,6 +148,10 @@ def breathing():
 @app.route('/journal')
 def journal():
     return render_template('journal.html')
-        
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
