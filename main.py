@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request, redirect, url_for,session,jsonify
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import MySQLdb.cursors, re, hashlib
@@ -74,7 +74,7 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session.pop('loggin', None)
+    session.pop('loggedin', None)
     session.pop('user_id', None)
     session.pop('name', None)
 
@@ -149,8 +149,24 @@ def breathing():
 def journal():
     return render_template('journal.html')
 
-@app.route('/test')
+@app.route('/test', methods = ['GET','POST'])
 def test():
+    if request.method == 'POST':
+        data = request.json
+        answers = data.get('answers', [])
+
+        total_score = sum(answers)
+
+        if total_score <= 10:
+            stress_level = "Low Stress"
+        elif total_score <= 20:
+            stress_level = "Moderate Stress"
+        elif total_score <= 30:
+            stress_level = "High Stress"
+        else:
+            stress_level = "Severe Stress"
+            
+        return jsonify({"message": "Test submitted successfully", "stress_level": stress_level, "score": total_score})
     return render_template('test.html')
 
 if __name__ == "__main__":
