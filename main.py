@@ -164,6 +164,7 @@ def journal():
 @app.route('/test', methods = ['GET','POST'])
 def test():
     if request.method == 'POST':
+        user_id = session['user_id']
         data = request.json
         answers = data.get('answers', [])
 
@@ -177,8 +178,14 @@ def test():
             stress_level = "High Stress"
         else:
             stress_level = "Severe Stress"
-            
+        
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('INSERT INTO stress_test_score(user_id, total_score, stress_level) VALUES (%s,%s,%s)',(user_id, total_score, stress_level,))
+        mysql.connection.commit()
+
         return jsonify({"message": "Test submitted successfully", "stress_level": stress_level, "score": total_score})
+    
+        
     return render_template('test.html')
 
 if __name__ == "__main__":
