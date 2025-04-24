@@ -145,8 +145,20 @@ def breathing():
     else:
         return "No embeddable videos found.", 404
     
-@app.route('/journal')
+@app.route('/journal', methods = ['GET','POST'])
 def journal():
+    if request.method == 'POST':
+        user_id = session['user_id']
+        mood = request.form['mood']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('INSERT INTO journal(user_id, mood, notes) VALUES (%s,%s,%s)',(user_id, mood, notes,))
+        mysql.connection.commit()
+        
+
+        return redirect(url_for('journal'))
+        
     return render_template('journal.html')
 
 @app.route('/test', methods = ['GET','POST'])

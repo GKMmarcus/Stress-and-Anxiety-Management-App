@@ -22,9 +22,9 @@
 
         <div class = "content">
             <h2>Write about your day</h2>
-            <form action="/journal" class = "journal-form">
+            <form action="/journal" method="POST" class = "journal-form">
                 <label>How's you feeling?</label>
-                <select name = "mood">
+                <select name = "mood" required>
                     <option value="Happy">Happy</option>
                     <option value="Okay">Okay</option>
                     <option value="Sad">Sad</option>
@@ -33,8 +33,8 @@
                     <option value="Excited">Excited</option>
                 </select>
 
-                <label>Write your thoughts</label>
-                <textarea rows = '5'></textarea>
+                <label for ='notes'>Write your thoughts</label>
+                <textarea name ='notes' rows = '5' required></textarea>
 
                 <button type="submit">Save Journal</button>
             </form>
