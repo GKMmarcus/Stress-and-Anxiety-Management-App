@@ -25,6 +25,7 @@ h1{
   	margin: 100px auto;
 }
 .login h1, .register h1 {
+	background-color: #ffffff;
   	text-align: center;
   	color: #5b6574;
   	font-size: 24px;
@@ -94,6 +95,8 @@ h1{
 }
 .navtop div {
   	display: flex;
+	justify-content: center; 
+	align-items: center;
   	margin: 0 auto;
   	width: 1000px;
   	height: 100%;
@@ -162,10 +165,10 @@ body.loggedin {
 .journal-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align elements to the left */
-    gap: 10px; /* Add spacing between elements */
-    width: 50%; /* Adjust the form width */
-    margin: 20px auto; /* Center the form */
+    align-items: flex-start; 
+    gap: 10px; 
+    width: 50%;
+    margin: 20px auto; 
     padding: 20px;
     border-radius: 10px;
     background: #f9f9f9;
