@@ -170,11 +170,11 @@ def test():
 
         total_score = sum(answers)
 
-        if total_score <= 10:
+        if total_score <= 25:
             stress_level = "Low Stress"
-        elif total_score <= 20:
+        elif total_score <= 50:
             stress_level = "Moderate Stress"
-        elif total_score <= 30:
+        elif total_score <= 75:
             stress_level = "High Stress"
         else:
             stress_level = "Severe Stress"
